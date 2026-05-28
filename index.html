@@ -1,274 +1,1019 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Suhani Verma | AI Research & Defense Systems</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Suhani Verma – Portfolio</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      fontFamily: {
+        display: ['Playfair Display', 'serif'],
+        body: ['Inter', 'sans-serif'],
+      },
+      colors: {
+        base: { 950: '#0a0a0a', 900: '#171717', 800: '#262626', 700: '#404040' },
+        accent: { 400: '#9ca3af', 500: '#6b7280', 600: '#4b5563' },
+      },
+      animation: {
+        'fade-up': 'fadeUp 0.7s ease forwards',
+        'fade-in': 'fadeIn 0.6s ease forwards',
+        'pulse-glow': 'pulseGlow 4s ease-in-out infinite',
+        'float': 'float 6s ease-in-out infinite',
+        'spin-slow': 'spin 25s linear infinite',
+        'spin-slow-reverse': 'spin 35s linear infinite reverse',
+        'typing': 'typing 3.5s steps(30,end) forwards, blink 0.75s step-end infinite',
+      },
+      keyframes: {
+        fadeUp: { '0%': { opacity: 0, transform: 'translateY(20px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } },
+        fadeIn: { '0%': { opacity: 0 }, '100%': { opacity: 1 } },
+        pulseGlow: { '0%,100%': { boxShadow: '0 0 15px rgba(255,255,255,0.05)' }, '50%': { boxShadow: '0 0 30px rgba(255,255,255,0.1)' } },
+        float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+        typing: { from: { width: 0 }, to: { width: '100%' } },
+        blink: { '0%,100%': { borderColor: 'transparent' }, '50%': { borderColor: '#9ca3af' } },
+      },
+      backdropBlur: { xs: '2px' },
+    }
+  }
+}
+</script>
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-scroll-behavior:smooth;
-}
+  * { box-sizing: border-box; }
+  html { font-family: 'Inter', sans-serif; }
+  body { margin: 0; background: #0a0a0a; color: #e5e5e5; }
 
-body{
-background: radial-gradient(circle at top left,#0a0f1a,#05070d 70%);
-color:#e6e6e6;
-font-family:'Poppins',sans-serif;
-overflow-x:hidden;
-}
+  .glass {
+    background: rgba(255,255,255,0.02);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .glass-light {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  
+  /* Minimalistic gradients */
+  .gradient-text {
+    background: linear-gradient(135deg, #ffffff, #9ca3af);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .light .gradient-text {
+    background: linear-gradient(135deg, #171717, #6b7280);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .gradient-border {
+    position: relative;
+  }
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.02));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
 
-/* Subtle tactical grid overlay */
-body::before{
-content:"";
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background-image:linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-background-size:40px 40px;
-z-index:-1;
-}
+  .mesh-bg {
+    background: #0a0a0a;
+  }
+  .mesh-bg-light {
+    background: #fcfcfc;
+  }
 
-/* HEADER */
-header{
-position:fixed;
-width:100%;
-padding:18px 8%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-background:rgba(0,0,0,0.6);
-backdrop-filter:blur(8px);
-border-bottom:1px solid rgba(201,162,39,0.2);
-z-index:1000;
-}
+  .card-hover {
+    transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1);
+  }
+  .light .card-hover:hover {
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05), 0 0 0 1px rgba(0,0,0,0.1);
+  }
 
-header h1{
-font-family:'Playfair Display',serif;
-color:#c9a227;
-font-size:1.4rem;
-letter-spacing:2px;
-}
+  .btn-primary {
+    background: #171717;
+    border: 1px solid #404040;
+    color: #ffffff;
+    transition: all 0.3s ease;
+  }
+  .light .btn-primary {
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    color: #171717;
+  }
+  .btn-primary:hover {
+    background: #262626;
+    border-color: #6b7280;
+    transform: translateY(-2px);
+  }
+  .light .btn-primary:hover {
+    background: #f5f5f5;
+    border-color: #a3a3a3;
+  }
+  
+  .btn-outline {
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: all 0.3s ease;
+  }
+  .btn-outline:hover {
+    border-color: #9ca3af;
+    background: rgba(255,255,255,0.05);
+    transform: translateY(-2px);
+  }
+  .light .btn-outline {
+    border: 1px solid rgba(0,0,0,0.15);
+  }
+  .light .btn-outline:hover {
+    border-color: #4b5563;
+    background: rgba(0,0,0,0.03);
+  }
 
-nav ul{
-display:flex;
-gap:25px;
-list-style:none;
-}
+  .nav-link {
+    position: relative;
+    transition: color 0.2s;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 1px;
+    background: #9ca3af;
+    transform: scaleX(0);
+    transition: transform 0.25s ease;
+    border-radius: 2px;
+  }
+  .nav-link:hover::after { transform: scaleX(1); }
 
-nav a{
-text-decoration:none;
-color:#00f0ff;
-transition:0.3s;
-font-size:0.9rem;
-letter-spacing:1px;
-}
+  .skill-pill {
+    transition: all 0.25s ease;
+  }
+  .skill-pill:hover {
+    background: rgba(255,255,255,0.08) !important;
+  }
+  .light .skill-pill:hover {
+    background: rgba(0,0,0,0.08) !important;
+  }
 
-nav a:hover{
-color:#c9a227;
-}
+  .typing-cursor::after {
+    content: '|';
+    color: #9ca3af;
+    animation: blink-cursor 0.75s step-end infinite;
+  }
+  @keyframes blink-cursor {
+    0%,100% { opacity: 1; } 50% { opacity: 0; }
+  }
 
-/* HERO */
-.hero{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:0 10%;
-}
+  .section-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .section-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-.hero h2{
-font-size:3rem;
-font-family:'Playfair Display',serif;
-background:linear-gradient(90deg,#c9a227,#00f0ff);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-margin-bottom:20px;
-}
+  .timeline-dot {
+    width: 10px; height: 10px;
+    background: #6b7280;
+    border-radius: 50%;
+    border: 2px solid #0a0a0a;
+    box-shadow: 0 0 0 1px #404040;
+    flex-shrink: 0;
+  }
+  .light .timeline-dot {
+    background: #9ca3af;
+    border-color: #ffffff;
+    box-shadow: 0 0 0 1px #e5e5e5;
+  }
 
-.hero p{
-max-width:700px;
-opacity:0.8;
-}
+  .noise-overlay {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
 
-/* SECTION */
-section{
-padding:120px 10%;
-}
+  .grid-pattern {
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .light .grid-pattern {
+    background-image:
+      linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
+  }
 
-.section-title{
-font-family:'Playfair Display',serif;
-font-size:2rem;
-color:#c9a227;
-margin-bottom:30px;
-text-align:center;
-}
+  .light .glass {
+    background: rgba(255,255,255,0.6);
+    border-color: rgba(0,0,0,0.05);
+  }
 
-/* Glass Elite Cards */
-.card{
-background:rgba(255,255,255,0.04);
-border:1px solid rgba(201,162,39,0.15);
-padding:30px;
-border-radius:15px;
-backdrop-filter:blur(10px);
-transition:0.4s;
-}
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #404040; border-radius: 2px; }
 
-.card:hover{
-transform:translateY(-10px);
-box-shadow:0 0 40px rgba(0,240,255,0.3);
-}
-
-/* Projects Grid */
-.projects-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:30px;
-}
-
-button{
-margin-top:15px;
-padding:10px 20px;
-background:transparent;
-border:1px solid #c9a227;
-color:#c9a227;
-cursor:pointer;
-border-radius:30px;
-transition:0.3s;
-}
-
-button:hover{
-background:#c9a227;
-color:#000;
-}
-
-/* Skills */
-.skills{
-display:flex;
-flex-wrap:wrap;
-gap:15px;
-justify-content:center;
-}
-
-.skill{
-padding:8px 18px;
-border:1px solid #00f0ff;
-border-radius:30px;
-font-size:0.85rem;
-}
-
-/* Footer */
-footer{
-text-align:center;
-padding:40px;
-border-top:1px solid rgba(201,162,39,0.2);
-opacity:0.6;
-}
+  /* Mobile nav */
+  .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
+  .mobile-menu.open { transform: translateX(0); }
 </style>
 </head>
-
 <body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect, useRef, useCallback } = React;
 
-<header>
-<h1>Suhani Verma</h1>
-<nav>
-<ul>
-<li><a href="#about">About</a></li>
-<li><a href="#projects">Projects</a></li>
-<li><a href="#research">Research</a></li>
-<li><a href="#skills">Skills</a></li>
-<li><a href="#contact">Contact</a></li>
-</ul>
-</nav>
-</header>
+// ── Icons (inline SVG) ──────────────────────────────────────────
+const Icon = ({ name, size = 20, className = '' }) => {
+  const icons = {
+    github: <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>,
+    linkedin: <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>,
+    mail: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>,
+    moon: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>,
+    sun: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>,
+    download: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>,
+    external: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>,
+    chevron: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="9 18 15 12 9 6"/></svg>,
+    menu: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>,
+    close: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>,
+    star: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>,
+    code: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>,
+    award: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>,
+    zap: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>,
+    cpu: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>,
+    activity: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>,
+    send: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>,
+    check: <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="20 6 9 17 4 12"/></svg>,
+  };
+  return <span className={className} style={{display:'inline-flex',alignItems:'center'}}>{icons[name]}</span>;
+};
 
-<section class="hero">
-<h2>Artificial Intelligence × Defense Systems × Neuromorphic Research</h2>
-<p>
-ECE Undergraduate | AI Research Intern | Published at FIRE 2025 |
-Building intelligent systems for cybersecurity, multilingual NLP, and tactical drone surveillance.
-</p>
-</section>
+// ── Typing Animation ────────────────────────────────────────────
+const TypingText = ({ texts, dark }) => {
+  const [displayed, setDisplayed] = useState('');
+  const [textIdx, setTextIdx] = useState(0);
+  const [charIdx, setCharIdx] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+  useEffect(() => {
+    const current = texts[textIdx];
+    let delay = deleting ? 40 : 80;
+    if (!deleting && charIdx === current.length) delay = 2000;
+    if (deleting && charIdx === 0) delay = 400;
+    const t = setTimeout(() => {
+      if (!deleting && charIdx < current.length) {
+        setDisplayed(current.slice(0, charIdx + 1));
+        setCharIdx(c => c + 1);
+      } else if (!deleting && charIdx === current.length) {
+        setDeleting(true);
+      } else if (deleting && charIdx > 0) {
+        setDisplayed(current.slice(0, charIdx - 1));
+        setCharIdx(c => c - 1);
+      } else {
+        setDeleting(false);
+        setTextIdx(i => (i + 1) % texts.length);
+      }
+    }, delay);
+    return () => clearTimeout(t);
+  }, [charIdx, deleting, textIdx, texts]);
+  
+  return (
+    <span className={`typing-cursor ${dark ? 'text-gray-300' : 'text-gray-700'}`}>
+      {displayed}
+    </span>
+  );
+};
 
-<section id="about">
-<h2 class="section-title">About</h2>
-<div class="card">
-<p>
-I am an Electronics & Communication Engineering undergraduate specializing in AI-driven defense systems,
-neuromorphic computing, and multilingual NLP. My research spans low-resource language identification,
-AI multi-agent cybersecurity systems, and real-time drone surveillance architectures.
-</p>
-</div>
-</section>
+// ── Intersection Observer Hook ──────────────────────────────────
+const useReveal = () => {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { el.classList.add('visible'); obs.unobserve(el); }
+    }, { threshold: 0.1 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return ref;
+};
 
-<section id="projects">
-<h2 class="section-title">Defense & AI Projects</h2>
-<div class="projects-grid">
+// ── Data ────────────────────────────────────────────────────────
+const skills = [
+  {
+    category: 'Programming', icon: 'code',
+    items: ['Python', 'C/C++', 'Java', 'SQL', 'MATLAB'],
+  },
+  {
+    category: 'ML & AI', icon: 'zap',
+    items: ['TensorFlow', 'PyTorch', 'scikit-learn', 'Transformers', 'OpenCV'],
+  },
+  {
+    category: 'Signal Processing', icon: 'activity',
+    items: ['CFAR Detection', 'Signal Preprocessing', 'MATLAB Radar Toolbox'],
+  },
+  {
+    category: 'Embedded Systems', icon: 'cpu',
+    items: ['Arduino', 'Raspberry Pi', 'ESP32', 'IoT'],
+  },
+  {
+    category: 'Core Concepts', icon: 'star',
+    items: ['DSA', 'OOP', 'MVC', 'Debugging', 'Performance Optimization'],
+  },
+  {
+    category: 'Tools', icon: 'github',
+    items: ['Git', 'GitHub', 'AWS Foundation', 'Linux'],
+  },
+];
 
-<div class="card">
-<h3>VERONICA - Tactical Drone Radar</h3>
-<p>Python-based animated radar with real-time drone communication simulation.</p>
-<a href="https://github.com/Victory-7/Veronica---drone-surveillance"><button>Access Project</button></a>
-</div>
+const projects = [
+  {
+    title: 'Bidirectional RGB-LiDAR Translation System',
+    sub: 'Under Publication',
+    tech: ['PyTorch', 'OpenCV'],
+    desc: 'Designed pipelines for bidirectional RGB to LiDAR translation for autonomous perception and sensor fusion.',
+    github: 'https://github.com/',
+  },
+  {
+    title: 'Neuromorphic AI-Powered Prosthetic Hand',
+    sub: 'Under Publication',
+    tech: ['ESP32', 'Embedded AI'],
+    desc: 'Developed a GRU-based prosthetic control system using EMG, flex, and FSR sensor signals.',
+    github: 'https://github.com/',
+  },
+  {
+    title: 'AI-Powered Swarm Drone System (VERONICA)',
+    sub: 'Simulation & Robotics',
+    tech: ['Python', 'Simulation'],
+    desc: 'Built a swarm drone simulation with radar tracking, communication, and autonomous coordination.',
+    github: 'https://github.com/',
+  },
+  {
+    title: 'Radiology and Gastrointestinal AI System',
+    sub: 'Under Publication',
+    tech: ['Transformers', 'CV'],
+    desc: 'Developed multimodal medical AI pipelines integrating computer vision and transformer-based architectures.',
+    github: 'https://github.com/',
+  },
+  {
+    title: 'MBTI-Inspired Multi-Agent Cognitive AI',
+    sub: 'Published',
+    tech: ['Python', 'ML'],
+    desc: 'Built a multi-agent IDS achieving 90% accuracy and 0.902 F1-score on UNSW-NB15 using Random Forest.',
+    github: 'https://github.com/',
+  },
+  {
+    title: 'Adaptive Radar Signal Detection',
+    sub: 'Signal Processing',
+    tech: ['MATLAB', 'Radar'],
+    desc: 'Simulated adaptive radar systems implementing CFAR-based thresholding for dynamic target detection.',
+    github: 'https://github.com/',
+  },
+  {
+    title: 'GraMLID: GRU-Assisted Multilingual BERT',
+    sub: 'Published',
+    tech: ['PyTorch', 'NLP'],
+    desc: 'Developed a GRU-enhanced multilingual BERT framework for low-resource Dravidian language identification.',
+    github: 'https://github.com/',
+  },
+  {
+    title: 'Wireless 5G Communication System',
+    sub: 'Networking & IoT',
+    tech: ['IoT', 'MQTT', 'YOLO'],
+    desc: 'Developed low-latency smartphone communication and real-time activity visualization systems.',
+    github: 'https://github.com/',
+  },
+  {
+    title: 'Antenna Design and RF Simulation',
+    sub: 'Under Publication',
+    tech: ['RF', 'MATLAB', 'HFSS'],
+    desc: 'Designed and analyzed antenna architectures emphasizing RF performance and EM behavior.',
+    github: 'https://github.com/',
+  },
+  {
+    title: 'MotionAI: Human Activity Recognition',
+    sub: 'Deep Learning',
+    tech: ['LSTM', 'CNN'],
+    desc: 'Implemented deep learning pipelines for time-series human activity classification.',
+    github: 'https://github.com/',
+  },
+  {
+    title: 'Invio: AI Accessibility Assistant',
+    sub: 'Accessibility Tech',
+    tech: ['Computer Vision'],
+    desc: 'Developed an AI-powered accessibility solution for visually impaired users using intelligent sensing.',
+    github: 'https://github.com/',
+  },
+  {
+    title: 'FRIDAY: Intelligent NLP Voice Assistant',
+    sub: 'Automation',
+    tech: ['Python', 'NLP'],
+    desc: 'Built a conversational AI assistant using NLP, speech recognition, and automation workflows.',
+    github: 'https://github.com/',
+  },
+  {
+    title: 'JARVIS AI Automation System',
+    sub: 'Virtual Assistant',
+    tech: ['Python', 'Automation'],
+    desc: 'Engineered an AI-driven virtual assistant integrating NLP and adaptive task execution.',
+    github: 'https://github.com/',
+  },
+  {
+    title: 'Tense Sense: Tense Classification',
+    sub: 'Machine Learning',
+    tech: ['ML', 'NLP'],
+    desc: 'Designed a machine learning model for automatic sentence tense classification.',
+    github: 'https://github.com/',
+  },
+  {
+    title: 'Database Inventory Management System',
+    sub: 'Backend & Data',
+    tech: ['Python', 'SQL'],
+    desc: 'Developed a SQL-integrated inventory management platform for sales and database operations.',
+    github: 'https://github.com/',
+  }
+];
 
-<div class="card">
-<h3>GraMLID - Multilingual NLP</h3>
-<p>GRU-assisted transformer system for low-resource word-level language identification.</p>
-</div>
+const experience = [
+  {
+    role: 'Computer Vision Research Intern',
+    org: 'IIT Mandi',
+    year: '2026',
+    desc: [
+      'Worked on RGB-LiDAR perception pipelines and multimodal scene understanding.',
+      'Built training, inference, and visualization pipelines using PyTorch and OpenCV.'
+    ]
+  },
+  {
+    role: 'Antenna Design Research Intern',
+    org: 'IIT Tirupati',
+    year: '2026',
+    desc: [
+      'Designed and analyzed RF antenna architectures for wireless communication systems.',
+      'Performed simulation and electromagnetic analysis using MATLAB tools.'
+    ]
+  },
+  {
+    role: 'AI/NLP Research Intern',
+    org: 'IIT BHU',
+    year: '2025',
+    desc: [
+      'Developed multilingual NLP pipelines for low-resource Dravidian text processing.',
+      'Evaluated transformer-based models using precision, recall, and F1-score metrics.'
+    ]
+  },
+  {
+    role: 'Software Development Intern',
+    org: 'S.K. Infotech',
+    year: '2024',
+    desc: [
+      'Developed Java Swing GUI applications using MVC architecture and debugging workflows.'
+    ]
+  },
+  {
+    role: 'AI in Cybersecurity Intern',
+    org: 'IBM',
+    year: '2022',
+    desc: [
+      'Studied anomaly detection models and structured feature pipelines for intrusion detection systems.'
+    ]
+  }
+];
 
-<div class="card">
-<h3>INVIO - AI Accessibility System</h3>
-<p>Real-time object detection & voice navigation for visually impaired users.</p>
-</div>
+const certs = [
+  { title: 'AWS Academy Cloud Foundations', org: 'Amazon Web Services', icon: '☁️' },
+  { title: 'MATLAB Certified Course', org: 'MathWorks', icon: '💻' },
+  { title: 'DreamBuilder Entrepreneurship (2x)', org: 'Entrepreneurship', icon: '🏆' },
+  { title: 'Silver Medalist', org: 'Basketball', icon: '🏅' },
+];
 
-</div>
-</section>
+const navLinks = ['About', 'Skills', 'Projects', 'Experience', 'Achievements', 'Contact'];
 
-<section id="research">
-<h2 class="section-title">Research & Publications</h2>
-<div class="card">
-<p>
-Published at FIRE 2025 and presented at IHCI Conference.
-AI/NLP Research Intern at IIT BHU working on transformer architectures
-for low-resource languages and intelligent agent-based cybersecurity systems.
-</p>
-</div>
-</section>
+// ── Navbar ──────────────────────────────────────────────────────
+const Navbar = ({ dark, toggleDark }) => {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  useEffect(() => {
+    const fn = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', fn);
+    return () => window.removeEventListener('scroll', fn);
+  }, []);
+  const scrollTo = (id) => {
+    document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior: 'smooth' });
+    setMenuOpen(false);
+  };
+  return (
+    <>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass shadow-sm' : ''}`}
+      style={{background: scrolled ? (dark ? 'rgba(10,10,10,0.85)' : 'rgba(255,255,255,0.85)') : 'transparent', backdropFilter: scrolled ? 'blur(20px)' : 'none', borderBottom: scrolled ? (dark ? '1px solid rgba(255,255,255,0.05)' : '1px solid rgba(0,0,0,0.05)') : 'none'}}>
+      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="font-display font-bold text-2xl tracking-wide gradient-text">
+          SV
+        </div>
+        {/* Desktop */}
+        <div className="hidden md:flex items-center gap-8">
+          {navLinks.map(l => (
+            <button key={l} onClick={() => scrollTo(l)} className={`nav-link font-body text-sm font-medium transition-colors ${dark ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-900'}`}>{l}</button>
+          ))}
+        </div>
+        <div className="flex items-center gap-4">
+          <button onClick={toggleDark} className={`p-2 rounded-full transition-all duration-300 ${dark ? 'text-gray-400 hover:text-white hover:bg-white/5' : 'text-gray-500 hover:text-black hover:bg-gray-100'}`}>
+            <Icon name={dark ? 'sun' : 'moon'} size={18} />
+          </button>
+          <button className="hidden md:block btn-primary text-sm font-medium px-5 py-2 rounded-full" onClick={() => scrollTo('Contact')}>
+            Connect
+          </button>
+          <button className="md:hidden p-2" onClick={() => setMenuOpen(o => !o)} style={{color: dark ? '#e5e5e5' : '#171717'}}>
+            <Icon name={menuOpen ? 'close' : 'menu'} size={22} />
+          </button>
+        </div>
+      </div>
+    </nav>
+    {/* Mobile Menu */}
+    <div className={`mobile-menu ${menuOpen ? 'open' : ''} fixed top-0 right-0 bottom-0 z-40 w-72 shadow-2xl`}
+      style={{background: dark ? '#0a0a0a' : '#ffffff', borderLeft: dark ? '1px solid rgba(255,255,255,0.05)' : '1px solid rgba(0,0,0,0.05)'}}>
+      <div className="pt-24 px-8 flex flex-col gap-6">
+        {navLinks.map(l => (
+          <button key={l} onClick={() => scrollTo(l)} className={`text-left font-display text-xl font-semibold transition-colors ${dark ? 'text-gray-300 hover:text-white' : 'text-gray-700 hover:text-black'}`}>{l}</button>
+        ))}
+        <div className="pt-6 border-t mt-4" style={{borderColor: dark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'}}>
+          <div className="flex gap-5">
+            {[['github','https://github.com/'],['linkedin','https://linkedin.com/']].map(([k,url]) => (
+              <a key={k} href={url} target="_blank" rel="noreferrer" className={`${dark ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-black'} transition-colors`}><Icon name={k} size={20}/></a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+    {menuOpen && <div className="fixed inset-0 z-30 bg-black/50 backdrop-blur-sm" onClick={() => setMenuOpen(false)}/>}
+    </>
+  );
+};
 
-<section id="skills">
-<h2 class="section-title">Technical Arsenal</h2>
-<div class="skills">
-<div class="skill">Python</div>
-<div class="skill">C++</div>
-<div class="skill">TensorFlow</div>
-<div class="skill">PyTorch</div>
-<div class="skill">MATLAB</div>
-<div class="skill">Cybersecurity</div>
-<div class="skill">Radar Systems</div>
-<div class="skill">Neuromorphic AI</div>
-</div>
-</section>
+// ── Hero ────────────────────────────────────────────────────────
+const Hero = ({ dark }) => {
+  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  
+  const hivemindSkills = [
+    {label:'Edge AI', top:'-10%', right:'10%', delay:'0s'},
+    {label:'Antenna Design', bottom:'5%', right:'-15%', delay:'1s'},
+    {label:'Embedded AI', bottom:'10%', left:'-10%', delay:'2s'},
+    {label:'NLP & CV', top:'10%', left:'-20%', delay:'0.5s'},
+    {label:'Python', top:'50%', left:'-30%', delay:'1.5s'},
+    {label:'Radar Systems', top:'45%', right:'-25%', delay:'2.5s'},
+  ];
 
-<section id="contact">
-<h2 class="section-title">Contact</h2>
-<div class="card">
-<p>Email: suhani.fgc@gmail.com</p>
-<p>GitHub: github.com/Victory-7</p>
-<p>LinkedIn: linkedin.com/in/suhani-verma-suv</p>
-</div>
-</section>
+  return (
+    <section id="hero" className={`relative min-h-screen flex items-center overflow-hidden grid-pattern ${dark ? 'mesh-bg' : 'mesh-bg-light'}`}>
+      <div className="noise-overlay" />
+      
+      {/* Subtle background glow */}
+      <div className="absolute top-1/4 right-1/3 w-[500px] h-[500px] rounded-full pointer-events-none" style={{background: dark ? 'radial-gradient(circle,rgba(255,255,255,0.015) 0%,transparent 70%)' : 'radial-gradient(circle,rgba(0,0,0,0.02) 0%,transparent 70%)',animation:'float 10s ease-in-out infinite'}} />
 
-<footer>
-© 2026 Suhani Verma | AI Research & Defense Systems Engineering
-</footer>
+      <div className="max-w-6xl mx-auto px-6 pt-24 pb-16 grid md:grid-cols-2 gap-12 items-center w-full z-10">
+        {/* Text */}
+        <div style={{animation:'fadeUp 0.8s ease forwards'}}>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8 text-xs font-medium tracking-widest uppercase"
+            style={{background: dark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)', border: dark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)', color: dark ? '#a3a3a3' : '#525252'}}>
+            <span style={{width:6,height:6,borderRadius:'50%',background:'#525252',display:'inline-block'}}/>
+            Open to Opportunities
+          </div>
+          <h1 className="font-display font-semibold leading-tight mb-4" style={{fontSize:'clamp(2.8rem,6vw,4.2rem)'}}>
+            <span className={dark ? 'text-white' : 'text-black'}>Suhani</span>
+            <br/>
+            <span className="gradient-text italic">Verma</span>
+          </h1>
+          <div className="text-lg md:text-xl font-body mb-6 h-8 font-light" style={{color: dark ? '#a3a3a3' : '#525252'}}>
+            <TypingText dark={dark} texts={['AI/ML Researcher', 'ECE Undergraduate', 'Embedded Systems Enthusiast', 'Python & C/C++ Developer']} />
+          </div>
+          <p className="font-body text-sm leading-relaxed mb-10 max-w-lg font-light" style={{color: dark ? '#737373' : '#525252'}}>
+            ECE undergraduate with hands-on experience in applied AI/ML, signal processing, radar systems, and embedded platforms. Passionate about hardware-aware AI and autonomous systems.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <button onClick={() => scrollTo('projects')} className="btn-primary font-medium px-8 py-3.5 rounded-full text-sm">
+              View Work
+            </button>
+            <a href="resume.pdf" download className={`btn-outline font-medium px-8 py-3.5 rounded-full text-sm flex items-center gap-2 ${dark ? 'text-gray-300' : 'text-gray-700'}`}>
+              <Icon name="download" size={16} /> Resumé
+            </a>
+          </div>
+        </div>
 
+        {/* Minimalist Visual with Hivemind */}
+        <div className="hidden md:flex items-center justify-center" style={{animation:'fadeIn 1.2s ease 0.4s both'}}>
+          <div className="relative w-72 h-72 flex items-center justify-center">
+            
+            {/* Hivemind Orbs */}
+            {hivemindSkills.map(({label,top,right,bottom,left,delay}) => (
+              <div key={label} className="absolute px-4 py-1.5 rounded-full text-[11px] font-medium backdrop-blur-md z-20 transition-colors" 
+                   style={{top, right, bottom, left, whiteSpace:'nowrap', animation: `float 6s ease-in-out infinite ${delay}`, color: dark ? '#d4d4d4' : '#525252', border: dark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)', background: dark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)'}}>
+                {label}
+              </div>
+            ))}
+
+            {/* Elegant thin rings */}
+            <div className="absolute inset-0 rounded-full animate-spin-slow" style={{border: dark ? '1px solid rgba(255,255,255,0.07)' : '1px solid rgba(0,0,0,0.07)'}} />
+            <div className="absolute rounded-full animate-spin-slow-reverse" style={{inset:20,border: dark ? '1px dashed rgba(255,255,255,0.1)' : '1px dashed rgba(0,0,0,0.1)'}} />
+            <div className="absolute rounded-full" style={{inset:40,border: dark ? '1px solid rgba(255,255,255,0.03)' : '1px solid rgba(0,0,0,0.03)'}} />
+            
+            {/* Core Circle */}
+            <div className="absolute rounded-full glass gradient-border flex items-center justify-center z-10" style={{inset:70, background: dark ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.02)'}}>
+              <div className="w-full h-full flex items-center justify-center font-display font-light text-5xl gradient-text opacity-70">SV</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Scroll indicator */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
+        <span className="text-[10px] font-body tracking-[0.2em] uppercase" style={{color: dark ? '#525252' : '#a3a3a3'}}>Scroll</span>
+        <div className="w-[1px] h-12" style={{background: dark ? 'linear-gradient(to bottom, #404040, transparent)' : 'linear-gradient(to bottom, #d4d4d4, transparent)'}} />
+      </div>
+    </section>
+  );
+};
+
+// ── About ───────────────────────────────────────────────────────
+const About = ({ dark }) => {
+  const ref = useReveal();
+  return (
+    <section id="about" className={`py-32 ${dark ? 'bg-[#0a0a0a]' : 'bg-[#fafafa]'}`}>
+      <div className="max-w-6xl mx-auto px-6">
+        <div ref={ref} className="section-reveal grid md:grid-cols-2 gap-16 items-center">
+          <div>
+            <p className="text-xs font-medium tracking-widest uppercase mb-4" style={{color: dark ? '#737373' : '#a3a3a3'}}>About Me</p>
+            <h2 className={`font-display font-semibold text-4xl mb-8 ${dark ? 'text-white' : 'text-black'}`}>Bridging <span className="italic text-gray-500">Hardware</span> & <span className="gradient-text">AI</span></h2>
+            <p className="font-body text-sm leading-relaxed mb-6 font-light" style={{color: dark ? '#a3a3a3' : '#525252'}}>
+              I'm an ECE undergraduate at <strong className={dark ? 'text-gray-300 font-medium' : 'text-gray-700 font-medium'}>Banasthali Vidyapith</strong> (2023-2027), deeply invested in the intersection of artificial intelligence and physical systems. 
+            </p>
+            <p className="font-body text-sm leading-relaxed mb-10 font-light" style={{color: dark ? '#a3a3a3' : '#525252'}}>
+              Through research internships at premier institutes like IIT Mandi, IIT Tirupati, and IIT BHU, I've developed skills spanning NLP for low-resource languages, computer vision, CFAR-based radar simulations, and embedded system design.
+            </p>
+            
+            {/* Timeline */}
+            <div className="space-y-6">
+              {[
+                {year:'2023–2027 (Exp.)', title:'B.Tech Electronics & Communication', sub:'Banasthali Vidyapith — CGPA: 7.010/10'},
+                {year:'2023', title:'AISSCE (Class XII)', sub:'DPS Ranipur, Haridwar — 82.94%'},
+                {year:'2020', title:'AISSE (Class X)', sub:'DPS Ranipur, Haridwar — 94.75%'},
+              ].map(({year,title,sub}) => (
+                <div key={year} className="flex gap-5 items-start">
+                  <div className="timeline-dot mt-1.5" />
+                  <div>
+                    <div className="font-body text-[11px] font-semibold tracking-wider mb-1" style={{color: dark ? '#737373' : '#a3a3a3'}}>{year}</div>
+                    <div className={`font-display text-base mb-0.5 ${dark ? 'text-gray-200' : 'text-gray-800'}`}>{title}</div>
+                    <div className="font-body text-xs font-light" style={{color: dark ? '#737373' : '#6b7280'}}>{sub}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Stats cards */}
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              {n:'3',l:'Publications',sub:'SSRN, FIRE'},
+              {n:'5',l:'Internships',sub:'IITs & Industry'},
+              {n:'15',l:'Projects',sub:'Hardware & AI'},
+              {n:'5',l:'Core Stacks',sub:'AI, Perception-Robotics & More'},
+            ].map(({n,l,sub}) => (
+              <div key={l} className={`glass card-hover rounded-2xl p-8 ${dark ? '' : 'bg-white'}`}>
+                <div className={`font-display font-light text-4xl mb-2 ${dark ? 'text-gray-200' : 'text-gray-800'}`}>{n}</div>
+                <div className={`font-body font-medium text-sm mb-1 ${dark ? 'text-gray-400' : 'text-gray-600'}`}>{l}</div>
+                <div className="font-body text-xs font-light" style={{color: dark ? '#737373' : '#9ca3af'}}>{sub}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ── Skills ──────────────────────────────────────────────────────
+const Skills = ({ dark }) => {
+  const ref = useReveal();
+  return (
+    <section id="skills" className={`py-32 ${dark ? 'bg-[#111111]' : 'bg-white'}`}>
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center mb-20">
+          <p className="text-xs font-medium tracking-widest uppercase mb-4" style={{color: dark ? '#737373' : '#a3a3a3'}}>Expertise</p>
+          <h2 className={`font-display font-semibold text-4xl ${dark ? 'text-white' : 'text-black'}`}>Technical <span className="italic text-gray-500">Arsenal</span></h2>
+        </div>
+        <div ref={ref} className="section-reveal grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {skills.map(({category, icon, items}) => (
+            <div key={category} className={`glass card-hover rounded-2xl p-7 ${dark ? '' : 'bg-[#fafafa]'}`}>
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-10 h-10 rounded-full flex items-center justify-center border" style={{borderColor: dark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)', background: dark ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.02)'}}>
+                  <Icon name={icon} size={18} className={dark ? 'text-gray-300' : 'text-gray-700'} />
+                </div>
+                <h3 className={`font-display text-lg ${dark ? 'text-gray-200' : 'text-gray-800'}`}>{category}</h3>
+              </div>
+              <div className="flex flex-wrap gap-2.5">
+                {items.map(item => (
+                  <span key={item} className={`skill-pill px-4 py-2 rounded-full text-xs font-medium cursor-default border ${dark ? 'text-gray-400 border-gray-800 bg-[#171717]' : 'text-gray-600 border-gray-200 bg-white'}`}>
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ── Projects ────────────────────────────────────────────────────
+const Projects = ({ dark }) => {
+  const ref = useReveal();
+  return (
+    <section id="projects" className={`py-32 ${dark ? 'bg-[#0a0a0a]' : 'bg-[#fafafa]'}`}>
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6">
+          <div>
+            <p className="text-xs font-medium tracking-widest uppercase mb-4" style={{color: dark ? '#737373' : '#a3a3a3'}}>Portfolio</p>
+            <h2 className={`font-display font-semibold text-4xl ${dark ? 'text-white' : 'text-black'}`}>Selected <span className="italic text-gray-500">Works</span></h2>
+          </div>
+          <a href="https://github.com/" target="_blank" rel="noreferrer" className={`text-sm font-medium border-b pb-1 flex items-center gap-2 ${dark ? 'text-gray-400 border-gray-700 hover:text-white' : 'text-gray-600 border-gray-300 hover:text-black'} transition-colors`}>
+            View GitHub <Icon name="external" size={14} />
+          </a>
+        </div>
+        
+        <div ref={ref} className="section-reveal grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map(({title,sub,tech,desc,github}) => (
+            <div key={title} className={`glass card-hover rounded-2xl flex flex-col p-8 ${dark ? '' : 'bg-white'}`}>
+              <div className="flex-1">
+                <p className="text-[11px] font-semibold uppercase tracking-wider mb-3" style={{color: dark ? '#737373' : '#9ca3af'}}>{sub}</p>
+                <h3 className={`font-display text-lg leading-snug mb-4 ${dark ? 'text-gray-100' : 'text-gray-900'}`}>{title}</h3>
+                <p className="font-body text-sm leading-relaxed mb-6 font-light" style={{color: dark ? '#a3a3a3' : '#6b7280'}}>{desc}</p>
+              </div>
+              <div>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {tech.map(t => (
+                    <span key={t} className="px-3 py-1.5 rounded-md text-[11px] font-medium" style={{background: dark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)', color: dark ? '#a3a3a3' : '#6b7280'}}>{t}</span>
+                  ))}
+                </div>
+                <a href={github} target="_blank" rel="noreferrer" className={`inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider ${dark ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-black'} transition-colors`}>
+                  <Icon name="github" size={14} /> Code
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ── Experience ──────────────────────────────────────────────────
+const Experience = ({ dark }) => {
+  const ref = useReveal();
+  return (
+    <section id="experience" className={`py-32 ${dark ? 'bg-[#111111]' : 'bg-white'}`}>
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center mb-20">
+          <p className="text-xs font-medium tracking-widest uppercase mb-4" style={{color: dark ? '#737373' : '#a3a3a3'}}>Career</p>
+          <h2 className={`font-display font-semibold text-4xl ${dark ? 'text-white' : 'text-black'}`}>Internships & <span className="italic text-gray-500">Research</span></h2>
+        </div>
+        
+        <div ref={ref} className="section-reveal max-w-4xl mx-auto space-y-6">
+          {experience.map(({role, org, year, desc}, idx) => (
+            <div key={idx} className={`glass card-hover rounded-2xl p-8 md:p-10 ${dark ? '' : 'bg-[#fafafa]'}`}>
+              <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6">
+                <div>
+                  <h3 className={`font-display text-xl mb-1 ${dark ? 'text-gray-200' : 'text-gray-800'}`}>{role}</h3>
+                  <div className={`font-body font-medium text-sm ${dark ? 'text-gray-400' : 'text-gray-600'}`}>{org}</div>
+                </div>
+                <div className="inline-flex items-center px-4 py-1.5 rounded-full text-[11px] font-medium tracking-wide uppercase border" style={{borderColor: dark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)', background: dark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)', color: dark ? '#a3a3a3' : '#6b7280'}}>
+                  {year}
+                </div>
+              </div>
+              <div className="space-y-4">
+                {desc.map((d, i) => (
+                  <div key={i} className="flex items-start gap-4">
+                    <div className="mt-1.5 flex-shrink-0"><div className="w-1.5 h-1.5 rounded-full bg-gray-500" /></div>
+                    <span className="font-body text-sm font-light leading-relaxed" style={{color: dark ? '#a3a3a3' : '#525252'}}>{d}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ── Achievements ──────────────────────────────────────────────
+const Achievements = ({ dark }) => {
+  const ref = useReveal();
+  return (
+    <section id="achievements" className={`py-32 ${dark ? 'bg-[#0a0a0a]' : 'bg-[#fafafa]'}`}>
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center mb-20">
+          <p className="text-xs font-medium tracking-widest uppercase mb-4" style={{color: dark ? '#737373' : '#a3a3a3'}}>Milestones</p>
+          <h2 className={`font-display font-semibold text-4xl ${dark ? 'text-white' : 'text-black'}`}>Certifications & <span className="italic text-gray-500">Honors</span></h2>
+        </div>
+        
+        <div ref={ref} className="section-reveal grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {certs.map(({title,org,icon}) => (
+            <div key={title} className={`glass card-hover rounded-2xl p-6 flex items-center gap-5 ${dark ? '' : 'bg-[#fafafa]'}`}>
+              <div className="text-2xl flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full border" style={{borderColor: dark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}}>{icon}</div>
+              <div>
+                <h3 className={`font-body font-medium text-sm mb-1 ${dark ? 'text-gray-200' : 'text-gray-800'}`}>{title}</h3>
+                <p className="font-body text-xs font-light" style={{color: dark ? '#a3a3a3' : '#6b7280'}}>{org}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Papers Section */}
+        <div ref={useReveal()} className="section-reveal mt-12 max-w-4xl mx-auto">
+          <div className={`glass rounded-2xl p-8 md:p-10 ${dark ? '' : 'bg-white shadow-sm'}`}>
+            <h3 className={`font-display text-xl mb-6 flex items-center justify-between ${dark ? 'text-gray-200' : 'text-gray-800'}`}>
+              <span className="flex items-center gap-3"><Icon name="award" size={20} className={dark ? 'text-gray-400' : 'text-gray-500'} /> Key Publications</span>
+            </h3>
+            
+            <div className="space-y-5">
+              {[
+                'Multi-Agent MBTI-Inspired Cognitive AI for Cybersecurity Threat Detection — SSRN (2025)',
+                'Economic Implications of Indigenous Weapon Development: DRDO Case Study — SSRN (2025)',
+                'GraMLID: GRU-Assisted Multilingual BERT for Word-Level Language Identification — FIRE (2025)'
+              ].map((a,i) => (
+                <div key={i} className="flex items-start gap-4">
+                  <div className="mt-1 flex-shrink-0"><div className="w-1.5 h-1.5 rounded-full bg-gray-500" /></div>
+                  <span className="font-body text-sm font-light leading-relaxed" style={{color: dark ? '#a3a3a3' : '#525252'}}>{a}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 border-t pt-6" style={{borderColor: dark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}}>
+              <a href="https://scholar.google.com/citations?user=L1ydFNUAAAAJ&hl=en" target="_blank" rel="noreferrer" 
+                 className={`inline-flex items-center gap-2 text-sm font-medium border-b pb-1 transition-colors ${dark ? 'text-gray-300 border-gray-600 hover:text-white' : 'text-gray-700 border-gray-300 hover:text-black'}`}>
+                <Icon name="external" size={16} /> View Google Scholar Profile
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ── Contact ─────────────────────────────────────────────────────
+const Contact = ({ dark }) => {
+  const ref = useReveal();
+  const [form, setForm] = useState({name:'',email:'',message:''});
+  const [sent, setSent] = useState(false);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSent(true);
+    setTimeout(() => setSent(false), 3000);
+    setForm({name:'',email:'',message:''});
+  };
+  
+  const inputClass = `w-full px-5 py-3.5 rounded-xl text-sm font-body font-light outline-none transition-all duration-300 ${dark ? 'bg-[#171717] text-white placeholder-gray-500 border border-[#262626] focus:border-gray-400' : 'bg-white text-black placeholder-gray-400 border border-gray-200 focus:border-gray-500'}`;
+  
+  return (
+    <section id="contact" className={`py-32 ${dark ? 'bg-[#111111]' : 'bg-white'}`}>
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center mb-20">
+          <p className="text-xs font-medium tracking-widest uppercase mb-4" style={{color: dark ? '#737373' : '#a3a3a3'}}>Connect</p>
+          <h2 className={`font-display font-semibold text-4xl ${dark ? 'text-white' : 'text-black'}`}>Get In <span className="italic text-gray-500">Touch</span></h2>
+        </div>
+        
+        <div ref={ref} className="section-reveal grid md:grid-cols-5 gap-12 max-w-5xl mx-auto">
+          {/* Info */}
+          <div className="md:col-span-2 space-y-4">
+            <h3 className={`font-display text-xl mb-6 ${dark ? 'text-gray-200' : 'text-gray-800'}`}>Contact Details</h3>
+            {[
+              {icon:'mail',label:'Email',val:'suhani.fgc@gmail.com',url:'mailto:suhani.fgc@gmail.com'},
+              {icon:'linkedin',label:'LinkedIn',val:'Suhani Verma',url:'https://linkedin.com/'},
+              {icon:'github',label:'GitHub',val:'Suhani Verma',url:'https://github.com/'},
+            ].map(({icon,label,val,url}) => (
+              <a key={label} href={url} target="_blank" rel="noreferrer"
+                className={`flex items-center gap-5 p-4 rounded-xl group transition-all ${dark ? 'hover:bg-[#171717]' : 'hover:bg-[#fafafa]'}`} style={{textDecoration:'none'}}>
+                <div className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 border transition-colors ${dark ? 'border-[#262626] text-gray-400 group-hover:border-gray-400 group-hover:text-white' : 'border-gray-200 text-gray-500 group-hover:border-gray-400 group-hover:text-black'}`}>
+                  <Icon name={icon} size={20} />
+                </div>
+                <div>
+                  <div className="font-body text-[11px] font-medium tracking-wider uppercase mb-1" style={{color: dark ? '#737373' : '#a3a3a3'}}>{label}</div>
+                  <div className={`font-body text-sm font-medium ${dark ? 'text-gray-300' : 'text-gray-700'}`}>{val}</div>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          {/* Form */}
+          <div className="md:col-span-3">
+            <div className={`glass rounded-2xl p-8 md:p-10 ${dark ? '' : 'bg-[#fafafa]'}`}>
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="grid md:grid-cols-2 gap-5">
+                  <input required className={inputClass} placeholder="Name" value={form.name} onChange={e => setForm({...form,name:e.target.value})} />
+                  <input required type="email" className={inputClass} placeholder="Email" value={form.email} onChange={e => setForm({...form,email:e.target.value})} />
+                </div>
+                <textarea required rows={5} className={inputClass} placeholder="Message" value={form.message} onChange={e => setForm({...form,message:e.target.value})} style={{resize:'none'}} />
+                <button type="submit" className="btn-primary w-full flex items-center justify-center gap-2 py-4 rounded-xl font-medium text-sm">
+                  {sent ? <><Icon name="check" size={16}/> Message Sent</> : 'Send Message'}
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ── Footer ──────────────────────────────────────────────────────
+const Footer = ({ dark }) => (
+  <footer className={`border-t py-12 ${dark ? 'border-[#171717] bg-[#0a0a0a]' : 'border-gray-200 bg-white'}`}>
+    <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="font-display font-semibold text-lg tracking-wide">
+        <span className={dark ? 'text-white' : 'text-black'}>Suhani</span> <span className="italic text-gray-500">Verma</span>
+      </div>
+      <div className="font-body text-xs font-light" style={{color: dark ? '#737373' : '#a3a3a3'}}>
+        © 2026 Suhani Verma.
+      </div>
+    </div>
+  </footer>
+);
+
+// ── Loading Screen ──────────────────────────────────────────────
+const Loader = ({ onDone, dark }) => {
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => {
+      setProgress(p => {
+        if (p >= 100) { clearInterval(t); setTimeout(onDone, 400); return 100; }
+        return p + 2;
+      });
+    }, 20);
+    return () => clearInterval(t);
+  }, [onDone]);
+  return (
+    <div className={`fixed inset-0 z- flex flex-col items-center justify-center ${dark ? 'bg-[#0a0a0a]' : 'bg-[#fafafa]'}`}>
+      <div className="font-display font-light text-5xl mb-8 tracking-widest opacity-80" style={{animation:'pulseGlow 2s ease-in-out infinite', color: dark ? '#e5e5e5' : '#171717'}}>
+        SV
+      </div>
+      <div className="w-48 h-[1px] overflow-hidden" style={{background: dark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}}>
+        <div className="h-full transition-all duration-75" style={{width:`${progress}%`,background: dark ? '#ffffff' : '#000000'}} />
+      </div>
+    </div>
+  );
+};
+
+// ── App ─────────────────────────────────────────────────────────
+const App = () => {
+  const [dark, setDark] = useState(true);
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    if (dark) document.documentElement.classList.add('dark');
+    else document.documentElement.classList.remove('dark');
+  }, [dark]);
+  
+  if (!loaded) return <Loader onDone={() => setLoaded(true)} dark={dark} />;
+  
+  return (
+    <div className={dark ? 'min-h-screen text-gray-200' : 'min-h-screen text-gray-800'} style={{transition:'background 0.5s ease'}}>
+      <Navbar dark={dark} toggleDark={() => setDark(d => !d)} />
+      <Hero dark={dark} />
+      <About dark={dark} />
+      <Skills dark={dark} />
+      <Projects dark={dark} />
+      <Experience dark={dark} />
+      <Achievements dark={dark} />
+      <Contact dark={dark} />
+      <Footer dark={dark} />
+    </div>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
 </body>
 </html>
